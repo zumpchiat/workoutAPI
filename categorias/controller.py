@@ -1,6 +1,8 @@
 from uuid import uuid4
 
-from fastapi import APIRouter, Body, status
+from fastapi import APIRouter, Body, HTTPException, status
+from pydantic import UUID4
+from sqlalchemy.future import select
 
 from atleta.models import AtletaModel
 from categorias.models import CategoriaModel
@@ -25,3 +27,39 @@ async def create_category(
     await db_session.commit()
 
     return categoria_out
+
+
+@router.get(
+    "/",
+    summary="Consulta todas as categorias",
+    status_code=status.HTTP_200_OK,
+    response_model=list[CategoriaOut],
+)
+async def get_all(db_session: DatabaseDependency) -> list[CategoriaOut]:
+    categorias: list[CategoriaOut] = (
+        (await db_session.execute(select(CategoriaModel))).scalars().all()
+    )
+
+    return categorias
+
+
+@router.get(
+    "/{id}",
+    summary="Consulta uma Categoria pelo id",
+    status_code=status.HTTP_200_OK,
+    response_model=CategoriaOut,
+)
+async def get(id: str, db_session: DatabaseDependency) -> CategoriaOut:
+    categoria: CategoriaOut = (
+        (await db_session.execute(select(CategoriaModel).filter_by(id=id)))
+        .scalars()
+        .first()
+    )
+
+    if not categoria:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Categoria não encontrada no id: {id}",
+        )
+
+    return categoria

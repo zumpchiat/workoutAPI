@@ -12,5 +12,7 @@ class CategoriaIn(BaseSchema):
 
 
 class CategoriaOut(CategoriaIn):
-    #  id: Annotated[UUID4, Field(description="Identificador da categoria")]
-    id: Optional[UUID4] = None
+    id: Annotated[UUID4, Field(description="Identificador da categoria")]
+
+
+# id: Optional[UUID4] = None
