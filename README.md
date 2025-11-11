@@ -11,7 +11,7 @@ Projeto de API para competição de crossfit chamada WorkoutAPI.
 ## Stack da API
 
 - FastAPI
-- Postgres
+- MySQL
 - Docker
 
 ## Execução da API
