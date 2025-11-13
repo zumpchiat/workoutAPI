@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from fastapi import APIRouter, Body, status
+from fastapi import APIRouter, Body, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy.future import select
 
@@ -34,3 +34,37 @@ async def post(
     await db_session.commit()
 
     return centro_treinamento_out
+
+
+@router.get(
+    "/",
+    summary="Consulta todos os centros de treinamento",
+    status_code=status.HTTP_200_OK,
+    response_model=list[CentroTreinamentoOut],
+)
+async def get_all(db_session: DatabaseDependency) -> list[CentroTreinamentoOut]:
+    centro_treinamentos: list[CentroTreinamentoOut] = (
+        (await db_session.execute(select(CentroTreinamentoModel))).scalars().all()
+    )
+    return centro_treinamentos
+
+
+@router.get(
+    "/{id}",
+    summary="Consulta centro de treinamento por id",
+    response_model=CentroTreinamentoOut,
+)
+async def get_one(id: str, db_session: DatabaseDependency) -> CentroTreinamentoOut:
+    centro_treinamento: CentroTreinamentoOut = (
+        (await db_session.execute(select(CentroTreinamentoModel).filter_by(id=id)))
+        .scalars()
+        .first()
+    )
+
+    if not centro_treinamento:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Ops!!! centro de treinamento com {id} não encontrado!",
+        )
+
+    return centro_treinamento

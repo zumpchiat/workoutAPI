@@ -44,4 +44,4 @@ class CentroTreinamentoAtleta(BaseSchema):
 
 
 class CentroTreinamentoOut(CentroTreinamentoIn):
-    id: Annotated[UUID4, Field(description="Identificador do centro de treinamento")]
+    id: Annotated[str, Field(description="Identificador do centro de treinamento")]

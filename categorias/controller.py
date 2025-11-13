@@ -49,7 +49,7 @@ async def get_all(db_session: DatabaseDependency) -> list[CategoriaOut]:
     status_code=status.HTTP_200_OK,
     response_model=CategoriaOut,
 )
-async def get(id: str, db_session: DatabaseDependency) -> CategoriaOut:
+async def get_one(id: str, db_session: DatabaseDependency) -> CategoriaOut:
     categoria: CategoriaOut = (
         (await db_session.execute(select(CategoriaModel).filter_by(id=id)))
         .scalars()
