@@ -16,7 +16,7 @@ router = APIRouter()
 
 @router.post(
     "/",
-    summary="Cria um novo atleta",
+    summary="Cria um atleta",
     status_code=status.HTTP_201_CREATED,
     response_model=AtletaOut,
 )
@@ -142,8 +142,25 @@ async def update(
     for key, value in atleta_update.items():
         setattr(atleta, key, value)
 
-    # breakpoint()
     await db_session.commit()
     await db_session.refresh(atleta)
 
     return AtletaUpdate.model_validate(atleta)
+
+
+@router.delete("/{id}", summary="Remove Atleta", status_code=status.HTTP_204_NO_CONTENT)
+async def remove(id: str, db_session: DatabaseDependency) -> None:
+    atleta: AtletaIn = (
+        (await db_session.execute(select(AtletaModel).filter_by(id=id)))
+        .scalars()
+        .first()
+    )
+
+    if not atleta:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Atleta não existe com id {id}",
+        )
+
+    await db_session.delete(atleta)
+    await db_session.commit()
