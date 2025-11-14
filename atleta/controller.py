@@ -25,6 +25,7 @@ async def create_atleta(
     db_session: DatabaseDependency, atleta_in: AtletaIn = Body(...)
 ) -> AtletaOut:
     categoria_nome = atleta_in.categoria.nome
+    atleta_cpf = atleta_in.cpf
     centro_treinamento_nome = atleta_in.centro_treinamento.nome
 
     categoria = (
@@ -36,6 +37,18 @@ async def create_atleta(
         .scalars()
         .first()
     )
+
+    atleta = (
+        (await db_session.execute(select(AtletaModel).filter_by(cpf=atleta_cpf)))
+        .scalars()
+        .first()
+    )
+
+    if atleta:
+        raise HTTPException(
+            status_code=status.HTTP_303_SEE_OTHER,
+            detail=f"Já existe um atleta cadastrado com o cpf: {atleta_cpf}",
+        )
 
     if not categoria:
         raise HTTPException(
