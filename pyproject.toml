@@ -6,7 +6,7 @@ authors = [
     {name = "zumpchiat",email = "zumpchiat@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<4.0"
 dependencies = [
     "fastapi[standard] (>=0.121.0,<0.122.0)",
     "uvicorn (>=0.38.0,<0.39.0)",
@@ -14,7 +14,11 @@ dependencies = [
     "alembic (>=1.17.1,<2.0.0)",
     "pydantic (>=2.12.4,<3.0.0)",
     "pymysql (>=1.1.2,<2.0.0)",
-    "aiomysql (>=0.3.2,<0.4.0)"
+    "aiomysql (>=0.3.2,<0.4.0)",
+    "pydantic-settings (>=2.11.0,<3.0.0)",
+    "cryptography (>=46.0.3,<47.0.0)",
+    "fastapi-pagination (>=0.15.0,<0.16.0)",
+    "python-decouple (>=3.8,<4.0)"
 ]
 
 

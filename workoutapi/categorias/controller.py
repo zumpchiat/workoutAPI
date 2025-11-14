@@ -4,10 +4,10 @@ from fastapi import APIRouter, Body, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy.future import select
 
-from atleta.models import AtletaModel
-from categorias.models import CategoriaModel
-from categorias.schemas import CategoriaIn, CategoriaOut
-from contrib.dependencies import DatabaseDependency
+from workoutapi.atleta.models import AtletaModel
+from workoutapi.categorias.models import CategoriaModel
+from workoutapi.categorias.schemas import CategoriaIn, CategoriaOut
+from workoutapi.contrib.dependencies import DatabaseDependency
 
 router = APIRouter()
 

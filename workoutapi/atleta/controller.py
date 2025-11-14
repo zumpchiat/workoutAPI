@@ -7,11 +7,11 @@ from fastapi_pagination import Page, add_pagination, paginate
 from pydantic import UUID4
 from sqlalchemy.future import select
 
-from atleta.models import AtletaModel
-from atleta.schemas import AtletaBasic, AtletaIn, AtletaOut, AtletaUpdate
-from categorias.models import CategoriaModel
-from centro_treinamento.models import CentroTreinamentoModel
-from contrib.dependencies import DatabaseDependency
+from workoutapi.atleta.models import AtletaModel
+from workoutapi.atleta.schemas import AtletaBasic, AtletaIn, AtletaOut, AtletaUpdate
+from workoutapi.categorias.models import CategoriaModel
+from workoutapi.centro_treinamento.models import CentroTreinamentoModel
+from workoutapi.contrib.dependencies import DatabaseDependency
 
 router = APIRouter()
 

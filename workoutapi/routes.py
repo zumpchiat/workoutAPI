@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from atleta.controller import router as atleta
-from categorias.controller import router as categoria
-from centro_treinamento.controller import router as centro_treinamento
+from workoutapi.atleta.controller import router as atleta
+from workoutapi.categorias.controller import router as categoria
+from workoutapi.centro_treinamento.controller import router as centro_treinamento
 
 api_router = APIRouter()
 

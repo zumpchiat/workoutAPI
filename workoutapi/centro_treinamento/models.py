@@ -3,7 +3,7 @@ from typing import List
 from sqlalchemy import UUID, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from contrib.models import BaseModel
+from workoutapi.contrib.models import BaseModel
 
 
 class CentroTreinamentoModel(BaseModel):
