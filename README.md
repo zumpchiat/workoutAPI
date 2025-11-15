@@ -18,8 +18,9 @@ Projeto de API para competição de crossfit chamada WorkoutAPI.
 
 ## API
 
-Para subir a API, execute:
+Para subir a API:
 
+- Crie um banco de dados chamado workout
 - Renomei env.local para .env
 - Edite o arquivo com as informações do seu banco de dados
 
