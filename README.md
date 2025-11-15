@@ -20,6 +20,9 @@ Projeto de API para competição de crossfit chamada WorkoutAPI.
 
 Para subir a API, execute:
 
+- Renomei env.local para .env
+- Edite o arquivo com as informações do seu banco de dados
+
 ```bash
 #cd workoutapi
 #alembic upgrade head
